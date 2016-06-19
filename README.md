@@ -1,7 +1,7 @@
 ![Kloxo-ST logo](https://github.com/mustafaramadhan/kloxo/blob/dev/kloxo-mr_big.png)
 
 ### Kloxo fork by Mustafa Ramadhan
-                            by SoarTeam
+###                    by SoarTeam
 
 
 ===================

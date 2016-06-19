@@ -1,84 +1,40 @@
-A. pre-install -- better for fresh install
+第一步，为安装做准备
 
     cd /
-
-    # update centos to latest version
     yum update -y
-    # install some packages like package-cleanup, etc
     yum install yum-utils yum-priorities vim-minimal subversion curl zip unzip -y
     yum install telnet wget -y
-
     cd /
-
-B. Install Kloxo-MR
-   - Install/reinstall/upgrade -- data not destroyed with this fork
-     for existing Kloxo (6.1.x), run 'sh /script/update' first.
-
-B.1. Fresh Install
-
-    B.1.1. for version 6.5.0 (rpm naming as kloxomr-6.5.0-*.rpm)
-
-        # move to /
-        cd /tmp
-
-        # remove old rpm
-        rm -f mratwork*
-
-        # install rpm (read Warning)
-        rpm -Uvh https://github.com/mustafaramadhan/kloxo/raw/rpms/release/neutral/noarch/mratwork-release-0.0.1-1.noarch.rpm
-
-        # move to /
-        cd /
-
-        # update
-        yum clean all
-
-        yum update mratwork-* -y
-
-        yum install kloxomr -y
-
-        sh /script/upcp
   
-    B.1.2. for version 7.0.0 (rpm naming as kloxomr7-7.0.0-*.rpm)
+第二步，安装Kloxo-ST 7
 
-        # move to /
         cd /tmp
-
-        # remove old rpm
         rm -f mratwork*
-
-        # install rpm (read Warning)
         rpm -Uvh https://github.com/mustafaramadhan/kloxo/raw/rpms/release/neutral/noarch/mratwork-release-0.0.1-1.noarch.rpm
-
-        # move to /
         cd /
-
-        # update
         yum clean all
-
         yum update mratwork-* -y
-
-        yum install kloxomr7 -y
-
+        yum install kloxost7 -y
         sh /script/upcp
 
-B.2. update from 6.5.0 to 7.0.0
+2，从Kloxo-MR 6.5 升级到 Kloxo-ST 7
 
-    yum replace kloxomr --replace-with=kloxomr7 -y
+    yum replace kloxomr --replace-with=kloxost7 -y
 	
     # '-y' mean force
     sh /script/upcp -y
     sh /script/mysql-optimize --select=upgrade
 
-B.3. update from Kloxo Official 6.1.19
+友情提示：
 
-    ## follow step B.1.1 or B.1.2 and read 'WARNING' below before next step
+1，在服务器出现某些问题，如503等，请执行
+     sh /script/cleanup
 
-    # '-y' mean force
-    sh /script/upcp -y
-    sh /script/mysql-optimize --select=upgrade
+2，在Kloxo-ST安装完毕以后发现程序没有启动
+执行cleanup结尾，也没有程序重启的输出
+那么请你重装系统，询问我们在何时可以安装
 
-WARNING:
+注意:
 
 1. Need running 'sh /script/backup-patch' in Kloxo Official (6.1.12) before backup data.
 
