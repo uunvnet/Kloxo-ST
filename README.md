@@ -1,34 +1,33 @@
-![Kloxo-MR logo](https://github.com/mustafaramadhan/kloxo/blob/dev/kloxo-mr_big.png)
+![Kloxo-ST logo](https://github.com/mustafaramadhan/kloxo/blob/dev/kloxo-mr_big.png)
 
 ### Kloxo fork by Mustafa Ramadhan
+                            by SoarTeam
 
 
 ===================
 
-Branch:
-- master - original code from lxcenter
-- dev - branch for next release
-- bugfix-6.5.0 - branch for bugfix for 6.5.0.f
-- release - branch for release in zip format
-- rpms - branch for rpms
+分支结构:
+- dev - 主分支，最新代码更新
+- release - 发布版本的下载
+- rpms - 所有用到的Rpm安装包
 
 ===================
 
-# Kloxo-MR
+# Kloxo-ST
 
-This is special edition (fork) of Kloxo with many features not existing on Kloxo official release (6.1.12+).
+这是以Kloxo-MR为基础的再开发版本，在外观/全球化/性能等方面做出改变的一个衍生版.
 
-This fork named as Kloxo-MR (meaning 'Kloxo fork by Mustafa Ramadhan').
+### 友情链接
 
-### URL
+1. Kloxo (LxCenter)(原名LxAdmin) - http://lxcenter.org/ and http://forum.lxcenter.org/
 
-1. More information about Kloxo (Official from LxCenter) - http://lxcenter.org/ and http://forum.lxcenter.org/
+2. Kloxo-MR - http://mratwork.com/ and http://forum.mratwork.com/
 
-2. More information about Kloxo-MR - http://mratwork.com/ and http://forum.mratwork.com/
+3. QYun - www.soaryun.com
 
-### Kloxo-MR Features
+### Kloxo-ST 的特点
 
-* OS: Redhat/CentOS 5 and 6 (32bit and 64bit) or their variants
+* OS: Redhat/CentOS 6 and 7 (32bit and 64bit) or their variants
 * Billing: AWBS, WHMCS, HostBill, TheHostingTool, AccountLab Plus, Blesta and BoxBilling (note: claim by billing's author)
 * Web server: Nginx, Nginx-Proxy and Lighttpd-proxy, Hiawatha, Hiawatha-proxy and Httpd 24, beside Httpd and Lighttpd; also Dual and Multiple Web server *)
 * Webcache server: Squid, Varnish, Hiawatha and ATS *)
@@ -41,23 +40,26 @@ This fork named as Kloxo-MR (meaning 'Kloxo fork by Mustafa Ramadhan').
 * FTP server: Pure-ftpd
 * DNS Server: Bind and Djbdns; add Powerdns, ~~MaraDNS~~, NSD, myDNS and Yadifa *)
 * Addons: ClamAV, Spamassassin/Bogofilter/Spamdyke, RKHunter and MalDetect
-* Fixed many bugs of Kloxo Official (including security issues)
-* And many more!
+* 修复所有原版Kloxo留下来的Bug.
+* 多语言支持
+* 耳目一新的主题风格
+* 还有更多!
 
-### Contributing
+### 想做出贡献？
 
-* Always invite for devs and testers. Go to http://mratwork.com/ and http://forum.mratwork.com/
+* 来Github提交代码，或者在论坛与我们进行交流！
+论坛建设中
 
 ### Licensing - AGPLv3
 
 * Like Kloxo Official, Kloxo-MR adopt AGPLv3 too.
 
-### How to install
+### 如何安装？
 
-* Read https://github.com/mustafaramadhan/kloxo/blob/release/how-to-install.txt
+* 请查阅：https://github.com/soarteam/Kloxo-ST/blob/dev/how-to-install.txt
 
 
-### Notes
+### 注意
 *) New features in Kloxo-MR 7.0.0 (aka Kloxo-MR 7)
 
 - Version 6.5.1 change to 7.0.0 since 20 Aug 2014 (beta step)
