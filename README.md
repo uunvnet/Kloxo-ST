@@ -66,7 +66,7 @@
 - Web server: Hiawatha (since 28 Sep 2013) and Httpd 2.4 (since 20 Jun 2015); Dual (since 19 Jan 2016) and Multiple Web server (in progress)
 - Webcache server: Squid, Varnish and ATS (Apache Traffic Server) (since 3 Oct 2013)
 - DNS server: Powerdns, NSD, MyDNS and Yadifa (since 16 Sep 2013)
-- Mail server: Dovecot (in progress)
+- Mail server: Dovecot (since 19 Jun 2016)
 - Php: multiple Php versions
   * suphp base since 27 Jun 2014
   * fcgid base since 5 Jul 2015

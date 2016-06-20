@@ -6410,7 +6410,7 @@ function setCheckPackages($nolog = null)
 	$phpbranch = getRpmBranchInstalled('php');
 
 	log_cleanup("Checking for rpm packages", $nolog);
-
+/*
 	if (isRpmInstalled("dovecot-toaster")) {
 		$imap_rpm = "";
 		$authlib_rpm = "";
@@ -6418,7 +6418,7 @@ function setCheckPackages($nolog = null)
 		$imap_rpm = "courier-imap-toaster";
 		$authlib_rpm = "courier-authlib-toaster";
 	}
-	
+*/
 	if ((strpos($phpbranch, '52') !== false) || (strpos($phpbranch, '53') !== false)) {
 		$phpbranchmysql = "{$phpbranch}-mysql";
 	} else {
@@ -6436,7 +6436,7 @@ function setCheckPackages($nolog = null)
 		"{$phpbranch}-mcrypt", "{$phpbranch}-xml", "{$phpbranch}-bcmath", "{$phpbranch}-pgsql",
 		"webalizer", "dos2unix", "rrdtool", "xinetd", "lxjailshell");
 */
-	$list = array("autorespond-toaster", $authlib_rpm, $imap_rpm,
+	$list = array("autorespond-toaster", "courier-imap-toaster", "dovecot-toaster",
 		"daemontools-toaster", "ezmlm-toaster", "libdomainkeys-toaster",
 		"libsrs2-toaster", "maildrop-toaster", "qmail-pop3d-toaster", "qmail-toaster",
 		"ripmime", "ucspi-tcp-toaster", "vpopmail-toaster", "fetchmail", "bogofilter",
@@ -8166,7 +8166,11 @@ function setSyncDrivers($nolog = null)
 
 //	include "../file/driver/rhel.inc";
 
-	$classlist = array('web' => 'apache', 'webcache' => 'none', 'dns' => 'bind', 'spam' => 'bogofilter');
+//	$classlist = array('web' => 'apache', 'webcache' => 'none', 'dns' => 'bind', 
+//		'pop3' => 'courier', 'imap4' => 'courier', 'smtp' => 'qmail', 'spam' => 'bogofilter');
+
+	$classlist = array('web' => 'apache', 'webcache' => 'none', 'dns' => 'bind', 
+		'pop3' => 'courier', 'smtp' => 'qmail', 'spam' => 'bogofilter');
 
 //	$server = $login->getFromList('pserver', 'localhost');
 //	$driverobject = $server->getObject('driver');
@@ -8185,18 +8189,20 @@ function setSyncDrivers($nolog = null)
 			$driver_from_slavedb = slave_get_driver($key);
 		}
 
-
 		$driver_from_table = $gbl->getSyncClass(null, 'localhost', $key);
 
 		if ($driver_from_table !== $driver_from_slavedb) {
 			$driver_from_table = $driver_from_slavedb;
+
+			if (!$driver_from_table) {
+				$driver_from_table = $val;
+			}
 
 			log_cleanup("- Synchronize for '{$key}' to '{$driver_from_table}'", $nolog);
 			exec("sh /script/setdriver --server=localhost --class={$key} --driver={$driver_from_table}");
 		} else {
 			log_cleanup("- No need synchronize for '{$key}' - already using '{$driver_from_table}'", $nolog);
 		}
-		
 	}
 }
 
