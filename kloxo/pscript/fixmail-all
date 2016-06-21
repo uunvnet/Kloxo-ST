@@ -1,0 +1,122 @@
+#!/bin/sh
+
+. /script/counter-start.inc
+
+if id -u postfix >/dev/null 2>&1; then
+	userdel postfix
+	delpf="yes"
+else
+	delpf="no"
+fi
+
+
+if rpm -qa|grep 'qmail-toaster' >/dev/null 2>&1 ; then
+	if [ $delpf == 'yes' ] ; then
+		yum -y reinstall *-toaster
+	fi
+else
+	yum -y install autorespond-toaster courier-authlib-toaster \
+		courier-imap-toaster daemontools-toaster ezmlm-toaster \
+		libdomainkeys-toaster libsrs2-toaster maildrop-toaster \
+		qmail-pop3d-toaster qmail-toaster ripmime-toaster ucspi-tcp-toaster \
+		vpopmail-toaster fetchmail bogofilter
+fi
+
+ULLKFPATH="/usr/local/lxlabs/kloxo/file"
+VQSPATH="/var/qmail/supervise"
+ERIPATH="/etc/rc.d/init.d"
+VQCPATH="/var/qmail/control"
+ECPATH="/etc/courier"
+
+HVPATH="/home/vpopmail"
+HVBPATH="${HVPATH}/bin"
+HVDPATH="${HVPATH}/domains"
+
+HLPATH="/home/lxadmin"
+HLMPATH="${HLPATH}/mail"
+HLMDPATH="${HLPATH}/mail/domains"
+
+if [ ! -d ${HLMDPATH} ] ; then
+	mkdir -p ${HLMDPATH}
+fi
+
+echo ""
+echo "Change qmail.init"
+cp -rf ${ULLKFPATH}/qmail/etc/init.d/qmail.init ${ERIPATH}/qmail
+chmod -f 0755 ${ERIPATH}/qmail
+
+echo "--------------------------"
+echo "Fix '89' uid to vpopmail:vchkpw ownership"
+
+if id -u postfix >/dev/null 2>&1 ; then
+	userdel postfix >/dev/null 2>&1
+fi
+
+if id -u lxpopuser >/dev/null 2>&1 ; then
+	userdel lxpopuser >/dev/null 2>&1
+	groupdel lxpopgroup >/dev/null 2>&1
+fi
+
+if id -u vpopmail >/dev/null 2>&1 ; then
+	userdel vpopmail >/dev/null 2>&1
+	groupdel vpopmail >/dev/null 2>&1
+	groupdel vchkpw >/dev/null 2>&1
+	groupadd -g 89 vchkpw >/dev/null 2>&1
+	useradd -u 89 -g 89 vpopmail -s '/sbin/nologin' >/dev/null 2>&1
+fi
+
+echo "--------------------------"
+echo "Set '${HVBPATH}/vchkpw' for root:root ownership"
+chown -f root:root ${HVBPATH}/vchkpw
+
+echo "--------------------------"
+echo "Set '${HVPATH}' for 755 permissions"
+chmod 755 ${HVPATH}
+echo "Set '${HVDPATH}' for 755 permissions"
+chmod 755 ${HVDPATH}
+echo "Set '${HLPATH}' for 755 permissions"
+chmod 755 ${HLPATH}
+echo "Set '${HLMPATH}' for 755 permissions"
+chmod 755 ${HLMPATH}
+echo "Set '${HLMDPATH}' for 755 permissions"
+chmod 755 ${HLMDPATH}
+
+echo "Set '${HVBPATH}/vchkpw' for 4751 permissions"
+chmod -f 4755 ${HVBPATH}/vchkpw
+
+echo "--------------------------"
+host_name=$(hostname)
+echo "Set '${VQCPATH}/locals' with 'localhost'"
+echo 'localhost' > ${VQCPATH}/locals
+for i in me defaultdomain defaulthost ; do
+	echo "Set '${VQCPATH}/${i}' with '${host_name}'"
+	echo ${host_name} > ${VQCPATH}/${i}
+done
+echo "--------------------------"
+echo " Fix Qmail cdb"
+qmailctl cdb
+
+echo "--------------------------"
+sh /script/fixvpop
+
+echo "--------------------------"
+sh /script/fix-qmail-assign
+
+echo "--------------------------"
+sh /script/fix-outgoingips
+
+echo "--------------------------"
+sh /script/fixmail
+
+#echo "--------------------------"
+## MR -- disabled it because trouble with cloudflare but give note
+#sh /script/fixdomainkey
+
+echo "--------------------------"
+sh /script/fixwebmail
+
+echo ""
+echo "- NOTE: use 'sh /script/fixdomainkey' if want to fix domainkeys"
+echo ""
+
+. /script/counter-end.inc

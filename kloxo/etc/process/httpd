@@ -1,0 +1,14 @@
+#!/bin/sh
+
+echo "*** Process for HTTPD service ***"
+
+if [ ! -f /var/run/httpd.pid ] ; then
+	if [ -f /var/lock/subsys/httpd ] ; then
+		'rm' -f /var/lock/subsys/httpd
+	fi
+fi
+
+echo "  - Process: restart"
+/etc/rc.d/init.d/httpd stop
+pkill -9 httpd
+/etc/rc.d/init.d/httpd start

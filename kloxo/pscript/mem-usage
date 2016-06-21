@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#ps hax -o rss,user | awk '{a[$2]+=$1;}END{for(i in a)print i" "int(a[i]/1024+0.5);}'
+
+#ps -eo user,pid,ppid,rss,vsize,pcpu,pmem,command --sort vsize
+
+if [ "$(rpm -qa|grep smem)" == "" ] ; then
+	yum install smem -y
+fi
+
+if ["$1" == "" ] ; then
+	/usr/bin/smem -u -t -k -p
+else
+	/usr/bin/smem $1
+fi
+
+echo ""
+echo "* Note: memory size in MB; web servers also run under 'apache'"
+echo ""

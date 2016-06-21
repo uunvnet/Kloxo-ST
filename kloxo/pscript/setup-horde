@@ -1,0 +1,13 @@
+#!/bin/sh
+
+path="/home/kloxo/httpd/webmail/horde"
+
+if [ "${1}" == "-y" ] ; then
+	if [ ! -f ${path}/index.php ] ; then
+		yum install kloxomr-webmail-horde -y
+		chown -R apache:apache $path
+	fi
+fi
+
+. /script/directory
+lxphp.exe ../bin/misc/setup-horde.php "$@"

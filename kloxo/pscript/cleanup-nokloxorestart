@@ -1,0 +1,33 @@
+#!/bin/sh
+
+. /script/counter-start.inc
+
+## MR -- importance for CentOS 6+ for cp/mv/rm
+#sh /script/disable-alias
+
+t=$(mysql -V|awk '{print $5}')
+u=$(echo $t|grep -i '5.0.')
+
+if [ "$u" != "" ] ; then
+	echo "Need update mysql first..."
+	echo "- Run 'yum replace mysql --replace-with=mysql55'" 
+	echo "- For OpenVZ VPS, add 'innodb_use_native_aio=0' under '[mysqld]' in '/etc/my.cnf'"
+	exit
+fi
+
+chkconfig kloxo on
+
+sh /script/fixlxphpexe
+sh /script/set-kloxo-php
+
+. /script/directory
+lxphp.exe ../bin/common/cleanup.php
+
+echo
+echo "*** Restart services - BEGIN ***"
+sh /script/restart-services --force
+echo "*** Restart services - END ***"
+echo
+
+. /script/counter-end.inc
+
