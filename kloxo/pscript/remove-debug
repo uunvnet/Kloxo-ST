@@ -1,3 +1,0 @@
-#!/bin/sh
-
-'rm' -f /usr/local/lxlabs/kloxo/httpdocs/commands.php >/dev/null 2>&1

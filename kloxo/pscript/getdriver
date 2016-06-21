@@ -1,5 +1,0 @@
-#!/bin/sh
-
-. /script/directory
-lxphp.exe ../bin/common/misc/getdriver.php $*
-

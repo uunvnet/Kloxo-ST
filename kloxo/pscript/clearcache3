@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# release on Kloxo-MR 6.5.0.f
-# by mustafa.ramadhan@lxcenter.org
-
-sh /script/clearcache --select=3
-
