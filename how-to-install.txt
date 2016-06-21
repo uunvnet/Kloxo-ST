@@ -13,12 +13,15 @@
  比如CentOS6 64bit 执行 rom -Uvh http://pkgs.repoforge.org/axel/axel-2.4-1.el6.rf.x86_64.rpm
  安装完毕且无报错以后执行
     
-	cd /etc/yum/pluginconf.d/
+    cd /etc/yum/pluginconf.d/
     wget https://github.com/soarteam/Kloxo-ST/raw/rpms/axelget.conf
     cd /usr/lib/yum-plugins/
     wget https://github.com/soarteam/Kloxo-ST/raw/rpms/axelget.py
 	
 最后确认 /etc/yum.conf中plugins=1
+
+    执行 echo "8.8.8.8" >> /etc/resolv.conf
+	以便不会出现过多的yum 404
 	
 第二步，安装Kloxo-ST 7
 
@@ -27,6 +30,7 @@
         rpm -Uvh https://github.com/soarteam/Kloxo-ST/raw/rpms/release/neutral/noarch/mratwork-release-0.0.1-1.noarch.rpm
         cd /
         yum clean all
+		#如果下一步出现任何错误，请执行 yum makecache 直到错误消失为止 （中国用户）
         yum update mratwork-* -y
         yum install kloxost7 -y
         sh /script/upcp
