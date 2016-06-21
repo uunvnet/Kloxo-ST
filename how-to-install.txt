@@ -6,11 +6,25 @@
     yum install telnet wget -y
     cd /
   
+ 中国用户请务必注意
+ 
+ 到 http://pkgs.repoforge.org/axel/ 寻找适合你操作系统的安装包
+ 并执行   rpm -Uvh “安装包地址”
+ 比如CentOS6 64bit 执行 rom -Uvh http://pkgs.repoforge.org/axel/axel-2.4-1.el6.rf.x86_64.rpm
+ 安装完毕且无报错以后执行
+    
+	cd /etc/yum/pluginconf.d/
+    wget https://github.com/soarteam/Kloxo-ST/raw/rpms/axelget.conf
+    cd /usr/lib/yum-plugins/
+    wget https://github.com/soarteam/Kloxo-ST/raw/rpms/axelget.py
+	
+最后确认 /etc/yum.conf中plugins=1
+	
 第二步，安装Kloxo-ST 7
 
         cd /tmp
         rm -f mratwork*
-        rpm -Uvh https://github.com/mustafaramadhan/kloxo/raw/rpms/release/neutral/noarch/mratwork-release-0.0.1-1.noarch.rpm
+        rpm -Uvh https://github.com/soarteam/Kloxo-ST/raw/rpms/release/neutral/noarch/mratwork-release-0.0.1-1.noarch.rpm
         cd /
         yum clean all
         yum update mratwork-* -y
@@ -41,7 +55,7 @@
     - In Kloxo offical run:
 
         cd /script
-        wget https://github.com/mustafaramadhan/kloxo/raw/dev/kloxo/pscript/backup-patch  --no-check-certificate
+        wget https://github.com/soarteam/Kloxo-ST/raw/dev/kloxo/pscript/backup-patch  --no-check-certificate
         sh ./backup-patch
 
 2. Need remove certain rpms in Kloxo Official after 6.1.12 (testing in 6.1.19)
@@ -69,7 +83,7 @@
     In CentOS 32bit may trouble with:
 
         # install rpm (read Warning)
-        rpm -Uvh https://github.com/mustafaramadhan/kloxo/raw/rpms/release/neutral/noarch/mratwork-release-0.0.1-1.noarch.rpm
+        rpm -Uvh https://github.com/soarteam/Kloxo-ST/raw/rpms/release/neutral/noarch/mratwork-release-0.0.1-1.noarch.rpm
 
     and then use:
 
@@ -78,5 +92,5 @@
         rm -f mratwork*
 
         # get rpm file
-        wget https://github.com/mustafaramadhan/kloxo/raw/rpms/release/neutral/noarch/mratwork-release-0.0.1-1.noarch.rpm --no-check-certificate
+        wget https://github.com/soarteam/Kloxo-ST/raw/rpms/release/neutral/noarch/mratwork-release-0.0.1-1.noarch.rpm --no-check-certificate
         rpm -ivh mratwork-release-0.0.1-1.noarch.rpm
